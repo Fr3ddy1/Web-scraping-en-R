@@ -1,2 +1,7 @@
 # Web-scrapping-en-R
-extraer información ó documento a partir desde una página Web
+
+Este script permite extraer información ó un documento a partir desde una página Web
+
+
+
+
