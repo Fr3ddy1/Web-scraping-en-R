@@ -127,6 +127,82 @@ $(document).ready(function () {
 <div id="web-scrapping-en-r" class="section level1">
 <h1>Web-scrapping-en-R</h1>
 <p>Este script permite extraer información ó un documento a partir desde una página Web</p>
+<div id="extraer-informacion-a-partir-de-una-pagina-web" class="section level2">
+<h2>Extraer información a partir de una página Web</h2>
+<div id="extraer-precio-dolar-dicom" class="section level3">
+<h3>Extraer precio Dolar Dicom</h3>
+<p>Para este ejemplo se extraerá el precio actual de Dolar Oficial Dicom, el cual se encuentra en la página del BCV. La librería para lograr este fin es “rvest”,</p>
+<pre><code>#cargo librería a usar
+library(rvest)
+
+## Warning: package 'rvest' was built under R version 3.5.2
+
+## Loading required package: xml2</code></pre>
+<p>Una vez cargada la librería, le indico a la función “read_html” la página Web que se quiere explorar,</p>
+<pre><code>#ingreso página web a anañizar
+webpage &lt;- read_html(&quot;http://www.bcv.org.ve&quot;)</code></pre>
+<p>Luego de esto, usando la función “html_nodes” es posible extraer del código html de la página los contenedores donde se encuentra la información deseada,</p>
+<pre><code>#obtengo precio compra 
+results &lt;- webpage %&gt;% html_nodes(&quot;div&quot;)</code></pre>
+<p>Una vez ubicada la información la extraemos y la guardamos en la variable “b”,</p>
+<pre><code>#selecciono la tasa de Cambio $/BsS
+b &lt;- as.character(xml_child(xml_child(xml_child(results[[70]], 7), 1), 1))
+b
+
+## [1] &quot;&lt;div class=\&quot;row recuadrotsmc\&quot;&gt;\n\t\t\t&lt;div class=\&quot;col-sm-6 col-xs-6\&quot;&gt;\n  \t\t\t&lt;img src=\&quot;/sites/default/files/dollar-04.png\&quot; class=\&quot;icono_bss_blanco\&quot;&gt;&lt;span&gt; Bs/USD&lt;/span&gt;\t &lt;/div&gt;\n                          &lt;div class=\&quot;col-sm-6 col-xs-6\&quot;&gt;\n&lt;strong&gt; 23.675,60 &lt;/strong&gt; &lt;/div&gt;\n\t        &lt;/div&gt;&quot;</code></pre>
+<p>Como se puede apreciar la información deseada se encuentra en dicha variable, pero con mucha mas información, por tal motivo es necesario extraer sólo el valor numérico de la tasa deseada. Para ello primero ubico la palabra “strong” para así conocer la ubicación de la misma con respecto a la cadena de caracteres que se encuentra en la variable “b”,</p>
+<pre><code>#extraigo información importante
+b1 &lt;- regexpr('strong', b)[1]
+b1
+
+## [1] 231</code></pre>
+<p>Una vez conocida esta posición, usando la función “substr” del paquete base, es posible extraer el precio deseado. Es importante señalar que en este caso los valores “8” y “16” son los espacios necesarios para que el valor de la tasa sea extraida de manera satisfactoria.</p>
+<pre><code>b2 &lt;- substr(b, b1+8, b1+16)
+b2
+
+## [1] &quot;23.675,60&quot;</code></pre>
+<p>Luego de estraer la tasa, a la misma se le debe hacer una trasnformación pues es necesario cambiar la “,” por el “.”, para así obtener un valor numérico que reconozca R. Para ello primero se debe eliminar el “.” que se utiliza como separador de miles, este caracter se reemplaza por el caracter vacio “”. Despues de esto la “,” se reemplaza por el “.”.</p>
+<pre><code>b3 &lt;- gsub(&quot;\\.&quot;, &quot;&quot;,b2)
+b3
+
+## [1] &quot;23675,60&quot;
+
+b4 &lt;- gsub(&quot;,&quot;, &quot;.&quot;,b3)
+b4
+
+## [1] &quot;23675.60&quot;</code></pre>
+<p>Finalmente obtengo el valor numérico de la tasa que deseo conocer,</p>
+<pre><code>b5 &lt;- as.numeric(b4)
+b5
+
+## [1] 23675.6</code></pre>
+</div>
+<div id="extraer-precio-dolar-airtm" class="section level3">
+<h3>Extraer precio Dolar Airtm</h3>
+<p>Para realizar esta extracción el procedimiento es similar al explicado anteriormente, primero se debe pasarle a la función “read_html” la página web a revisar, luego se ubica la información a extraer, finalmente se extrae la información y se convierte en un valor numérico,</p>
+<pre><code>#Extraigo precio Airtm
+
+#modifico página web donde se realizará la busqueda
+webpage &lt;- read_html(&quot;https://rates.airtm.io&quot;)
+
+#obtengo precio compra 
+a &lt;- xml_attrs(xml_child(xml_child(webpage, 1), 4))[[&quot;content&quot;]]
+
+#extraigo información importante
+a1 &lt;- regexpr('T.C:', a)[1]
+a1
+
+## [1] 18
+
+a2 &lt;- as.numeric(substr(a, a1+5, a1+12))
+
+#imprimo tasa de compra del $/BsS
+a2
+
+## [1] 20763.03</code></pre>
+<p>Es importante señalar que los valores extraidos fueron transformados a número con el fin de realizar operaciones con los mismos. De hecho este proceso se puede repetir cada hora y así crear un histórico a partir del cual se puede generar brechas y gráficos que pueden resultar muy interesantes e informativos.</p>
+</div>
+</div>
 </div>
 
 
