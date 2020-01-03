@@ -39,6 +39,21 @@ a2 <- as.numeric(substr(a, a1+5, a1+12))
 #imprimo tasa de compra del $/BsS
 a2
 
+#Extraigo precio Dolar Today
 
+#modifico página web donde se realizará la busqueda
+webpage <- read_html("https://dolartoday.com/")
+
+#obtengo precio compra 
+#a <- xml_attrs(xml_child(xml_child(webpage, 1), 4))[["content"]]
+a <- (xml_child(xml_child(webpage, 1), 15))
+
+#extraigo información importante
+a1 <- regexpr('Bs.', a)[1]
+a1
+a2 <- as.numeric(gsub(",", ".",substr(a, a1+4, a1+11)))
+
+#imprimo tasa de compra del $/BsS
+a2
 
      
