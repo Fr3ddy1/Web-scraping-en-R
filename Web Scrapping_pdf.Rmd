@@ -7,7 +7,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Extraer información a partir de una página WEB
+## \textcolor{blue}{Extraer información a partir de una página WEB}
 
 A continuación se explicará el proceso de extracción de información a partir de una pagína web usando **R**. Para este fin, se utilizarán los paquetes **rvest** y **xml2**, los cuales cuentan con una serie de funciones que nos permiten extraer el contenido del código **HTML** del cual se forma cualquier página WEB. Dentro de las funciones que se utilizarán se encuentran,
 
@@ -32,7 +32,7 @@ Mediante el uso de la funciones anterioremente explicadas es posible extraer cua
 
 Tanto para la primera como para la tercera página el precio se ubica en la parte derecha de la misma. Por otra parte la página de Airtm muestra la información en el centro al inicio de la página. Es importante señalar que al realizar esta consulta el precio devuelto será el precio actual del dolar, usando este procedimiento es posible elaborar un histórico de estos precios.
 
-### Extraer precio Dolar Dicom
+### \textcolor{blue}{Extraer precio Dolar Dicom}
 
 Para este ejemplo se extraerá el precio actual de Dolar Oficial Dicom, el cual se encuentra en la página del BCV. La librería para lograr este fin es "rvest",
 
@@ -106,7 +106,7 @@ b5 <- as.numeric(b4)
 b5
 ```
 
-### Extraer precio Dolar Airtm
+### \textcolor{blue}{Extraer precio Dolar Airtm}
 
 Para realizar esta extracción el procedimiento es similar al explicado anteriormente, primero se debe pasarle a la función **read_html** la página web a revisar, luego se ubica la información a extraer, finalmente se extrae la información y se convierte en un valor numérico,
 
@@ -131,7 +131,7 @@ a2
 Es importante señalar que los valores extraidos fueron transformados a número con el fin de realizar operaciones con los mismos. De hecho este proceso se puede repetir cada hora y así crear un histórico a partir del cual se puede generar brechas y gráficos que pueden resultar muy interesantes e informativos.
 
 
-### Extraer precio Dolar Today
+### \textcolor{blue}{Extraer precio Dolar Today}
 
 Para realizar esta extracción el procedimiento es similar al explicado anteriormente, 
 
@@ -152,7 +152,6 @@ a2 <- as.numeric(gsub(",", ".",substr(a, a1+4, a1+11)))
 #imprimo tasa de compra del $/BsS
 a2
 ```
-
 
 
 De esta forma se ha extraido el precio del Dolar de tres fuentes diferentes. Para mayor comodidad revisar mi repositorio [aquí](https://github.com/Fr3ddy1/Web-scrapping-en-R).
