@@ -1,5 +1,5 @@
 ---
-title: "WEB Scrapping"
+title: "WEB Scraping"
 output: pdf_document
 ---
 
@@ -61,7 +61,7 @@ Despues de tener el conjunto de nodos definido usamos la función **xml_child** 
 
 ```{r echo=TRUE}
 #selecciono la tasa de Cambio $/BsS
-b <- as.character(xml_child(xml_child(xml_child(results[[70]], 7), 1), 1))
+b <- as.character(xml_child(xml_child(xml_child(results[[66]], 7), 1), 1))
 
 substr(b, 1,70)
 substr(b, 71,140)
