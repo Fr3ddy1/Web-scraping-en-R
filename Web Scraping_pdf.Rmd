@@ -9,6 +9,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## \textcolor{blue}{Extraer información a partir de una página WEB}
 
+Actualmente el internet nos proporciona una fuente inagotable de información, y el poder acceder a la misma de forma sencilla y rápida es de.vital importancia si se quiere estar actualizado ó al tanto de un tema. La información que se consigue en internet viene dada en páginas web las cuales principalmente están escritas en código HTML, el cual es un lenguaje que reconocen y traducen los navegadores como Google Chrome , safari o Mozilla Firefox.
+
+El web scraping es un proceso mediante el cual es posible extraer información a partir del código HTML de una página web, en principio es posible extraer cual texto que se encuentre en dicha página web. En particular es posible extraer información como el precio del dólar de alguna fuente oficial de información, como lo puede ser el BCV, o también es posible tener fuentes no oficiales como dolar today o Airtm.
+
+### \textcolor{blue}{Proceso usando R}
+
 A continuación se explicará el proceso de extracción de información a partir de una pagína web usando **R**. Para este fin, se utilizarán los paquetes **rvest** y **xml2**, los cuales cuentan con una serie de funciones que nos permiten extraer el contenido del código **HTML** del cual se forma cualquier página WEB. Dentro de las funciones que se utilizarán se encuentran,
 
 * **read_html**: función perteneciente al paquete **xml2**, la cual permite leer el código HTML de la página deseada, como principal argumento usa la dirección URL de la página en cuestión.
@@ -154,4 +160,7 @@ a2
 ```
 
 
-De esta forma se ha extraido el precio del Dolar de tres fuentes diferentes. Para mayor comodidad revisar mi repositorio [aquí](https://github.com/Fr3ddy1/Web-scrapping-en-R).
+De esta manera se ha logrado extraer información importante relacionada con el precio oficial y no oficial del dólar. Esto se puede realizar con finés meramente informativos, es decir, para saber el precio del dólar en cualquier momento ó también se puede usar para elaborar una base de datos y así poder observar el comportamiento del precio del dólar durante un tiempo determinado. Como próximos pasos se propone usar esta técnica para extraer información de Twitter.
+
+
+Para mayor comodidad puede revisar mi repositorio en el siguiente [\textcolor{blue}{enlace}](https://github.com/Fr3ddy1/Web-scrapping-en-R).
